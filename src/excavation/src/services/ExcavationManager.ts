@@ -12,7 +12,7 @@ export class ExcavationManager {
         private readonly _excavationDAO: ExcavationDAO,
     ) { }
 
-    async save(dto: ExcavationSaveRequestDTO): Promise<void> {
+    async save(dto: ExcavationSaveRequestDTO, userCode: number): Promise<void> {
 
         const excavationSaveModel: ExcavationModel = {
             name: dto.name,
@@ -20,7 +20,7 @@ export class ExcavationManager {
             latitude: dto.latitude,
             longitude: dto.longitude,
             altitude: dto.altitude,
-            createdByUserCode: 1
+            createdByUserCode: userCode
         }
 
         this._excavationDAO.save(excavationSaveModel)

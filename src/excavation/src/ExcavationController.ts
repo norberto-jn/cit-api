@@ -3,6 +3,8 @@ import { JwtAuthGuardCookie } from "src/auth/src/services/JwtAuthGuardCookie"
 import { ExcavationUpdateRequestDTO } from "src/excavation/src/dtos/request/ExcavationUpdateRequestDTO"
 import { ExcavationManager } from "src/excavation/src/services/ExcavationManager"
 import { ExcavationSaveRequestDTO } from "./dtos/request/ExcavationSaveRequestDTO"
+import { User } from "src/common/decorators/User"
+import { PersonModel } from "src/person/src/models/PersonModel"
 
 @UseGuards(JwtAuthGuardCookie)
 @Controller('excavation')
@@ -13,8 +15,8 @@ export class ExcavationController {
     ) { }
 
     @Post()
-    async save(@Body() dto: ExcavationSaveRequestDTO): Promise<void> {
-        return this._personService.save(dto)
+    async save(@Body() dto: ExcavationSaveRequestDTO, @User() user: PersonModel): Promise<void> {
+        return this._personService.save(dto, user.code)
     }
 
     @Get()
